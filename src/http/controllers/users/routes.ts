@@ -1,6 +1,8 @@
 import type { FastifyInstance } from 'fastify'
-import { create } from './create.js'
+
 
 export function exampleRoutes(app: FastifyInstance) {
-  app.get('/create', create)
+  app.post('/users', async (request, replay) => {
+    return replay.status(201).send({})
+  })
 }
