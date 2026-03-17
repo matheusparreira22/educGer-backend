@@ -10,3 +10,31 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum TipoUsuario {
+  RESPONSAVEL
+  ADMIN
+}
+
+//model de usuario
+model User {
+  id           String      @id @default(uuid())
+  nomeCompleto String
+  email        String      @unique
+  senha        String
+  tipoUsuario  TipoUsuario @default(RESPONSAVEL)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  // Campos específicos para o tipo "responsavel"
+}
+
+//tipos de usuario (responsavel, admin)
+//campos: id, nomecompleto. email, senha, tipoUsuario(padrão: responsavel), createdAt, updatedAt
+//responsavel precisa ter nome do aluno, cpf, telefone, endereço.
+
+//model de eventos disparados para usuarios 
+
+// model de registro de cobrança de boleto emitido realizados por usuarios  com status
+
+//model de pagamentos efetuados para usuarios
