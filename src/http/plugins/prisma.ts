@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 declare module 'fastify' {
   interface FastifyInstance {
     prisma: PrismaClient
-  }
+  } 
 }
 
 export const prismaPlugin = fp(async app => {
