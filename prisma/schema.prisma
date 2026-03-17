@@ -11,20 +11,22 @@ datasource db {
   provider = "postgresql"
 }
 
-enum TipoUsuario {
-  RESPONSAVEL
+enum TypeUser {
+  GUARDIAN
   ADMIN
 }
 
 //model de usuario
 model User {
   id           String      @id @default(uuid())
-  nomeCompleto String
+  fullName     String
   email        String      @unique
-  senha        String
-  tipoUsuario  TipoUsuario @default(RESPONSAVEL)
+  password     String
+  userType     TypeUser    @default(GUARDIAN)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
+  active       Boolean     @default(false)
+  
 
   // Campos específicos para o tipo "responsavel"
 }
