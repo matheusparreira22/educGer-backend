@@ -8,6 +8,10 @@
   },
   "scripts": {
     "test": "node --test test/**/*.test.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -w -l info -P app.js"
   },
@@ -21,5 +25,10 @@
     "@fastify/sensible": "^6.0.0",
     "fastify-cli": "^7.4.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3"
+  }
 }
