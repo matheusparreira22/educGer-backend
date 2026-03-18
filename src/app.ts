@@ -7,4 +7,3 @@ export const app = fastify()
 
 app.register(prismaPlugin)
 app.register(exampleRoutes)
-                                        

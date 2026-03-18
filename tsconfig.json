@@ -1,45 +1,44 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    // File Layout
-    "rootDir": ".",
-    "outDir": "./dist",
+    // ── File Layout ────────────────────────────────────────────────────────────
+    // "rootDir": "./src",           // raiz dos arquivos .ts — tsc só compila daqui
+    "outDir": "./dist",           // onde os arquivos compilados (.js, .d.ts) são gerados
 
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
-    "types": [],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
+    // ── Environment ────────────────────────────────────────────────────────────
+    "module": "nodenext",         // resolução de módulos ESM nativa do Node; evolui junto com novas versões
+    "target": "esnext",           // compila para a versão mais moderna do JS, sem downgrade de sintaxe
+    "lib": ["esnext"],            // tipagens das APIs JS modernas (Promise, Array, etc.)
+    "types": ["node"],            // inclui apenas os tipos do Node (@types/node) — evita poluição global
 
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    // ── Type Stripping (Node 22+) ───────────────────────────────────────────────
+    // "erasableSyntaxOnly": true,   // proíbe enum, parameter properties e decorators legados —
+                                  // sintaxes que o Node não consegue remover nativamente
 
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    // ── Outputs ────────────────────────────────────────────────────────────────
+    "sourceMap": true,            // gera .map para debugar o código original no runtime
+    "declaration": true,          // gera .d.ts — necessário se o projeto for uma lib/pacote
+    "declarationMap": true,       // mapeia .d.ts → .ts original, melhorando o "go to definition"
 
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
+    // ── Strict Typechecking ────────────────────────────────────────────────────
+    "strict": true,               // ativa todo o conjunto de checagens rígidas do TS de uma vez:
+                                  // strictNullChecks, noImplicitAny, strictFunctionTypes, etc.
+    "noUncheckedIndexedAccess": true,  // obj[key] e arr[i] retornam T | undefined — força verificação
+    "exactOptionalPropertyTypes": true, // { a?: string } não aceita { a: undefined } explícito
 
-    // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true
-  },
-  "exclude": ["dist", "node_modules"]
+    // ── Style / Qualidade ──────────────────────────────────────────────────────
+    "noImplicitReturns": true,    // toda função com retorno tipado deve ter return em todos os caminhos
+    "noUnusedLocals": true,       // erro em variáveis locais declaradas mas nunca usadas
+    "noUnusedParameters": true,   // erro em parâmetros de função declarados mas nunca usados
+    "noFallthroughCasesInSwitch": true, // exige break/return entre cases no switch
+
+    // ── Module Best Practices (TS 5.x) ────────────────────────────────────────
+    "verbatimModuleSyntax": true, // import type deve ser explícito; garante que imports de tipo
+                                  // não virem imports reais no output
+    "isolatedModules": true,      // cada arquivo deve ser compilável de forma independente —
+                                  // compatível com esbuild, swc e type stripping do Node
+    "noUncheckedSideEffectImports": true, // imports sem binding (import "./setup") são verificados
+    "moduleDetection": "force",   // trata todos os arquivos como módulos, mesmo sem import/export
+    "rewriteRelativeImportExtensions": true, // reescreve imports .ts → .js no output automaticamente
+    "skipLibCheck": true          // pula verificação de tipos em .d.ts de terceiros — mais performance
+  }
 }
