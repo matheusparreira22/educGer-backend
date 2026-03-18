@@ -23,3 +23,13 @@
 
 //   return reply.status(201).send({ user })
 // }
+
+import { z } from 'zod'
+
+const userRegisterSchema = z.object({
+  fullname: z.string().min(1, 'O nome é obrigatório'),
+  email: z.email('O email deve ser válido'),
+  password: z.string().min(6, 'A senha deve conter no mínimo 6 caracteres'),
+})
+
+export type UserRegisterDTO = z.infer<typeof userRegisterSchema>
