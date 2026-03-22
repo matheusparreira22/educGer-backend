@@ -14,7 +14,8 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "build": "tsc -p tsconfig.json",
-    "start": "tsx src/server.ts"
+    "start": "tsx src/server.ts",
+    "seed": "npx prisma generate && tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
